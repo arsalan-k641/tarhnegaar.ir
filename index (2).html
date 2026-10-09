@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>طرح‌نگار | طراحی سایت حرفه‌ای</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Vazirmatn', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        * { font-family: 'Vazirmatn', sans-serif; }
+        html { scroll-behavior: smooth; }
+
+        @keyframes float1 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+        @keyframes float2 {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(-5deg); }
+        }
+        @keyframes float3 {
+            0%, 100% { transform: translateY(0px) translateX(0px); }
+            50% { transform: translateY(-25px) translateX(10px); }
+        }
+        @keyframes float-slow {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-15px) scale(1.05); }
+        }
+        @keyframes glow-pulse {
+            0%, 100% { opacity: 0.4; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+        .float-1 { animation: float1 6s ease-in-out infinite; }
+        .float-2 { animation: float2 8s ease-in-out infinite; }
+        .float-3 { animation: float3 7s ease-in-out infinite; }
+        .float-slow { animation: float-slow 5s ease-in-out infinite; }
+        .glow-pulse { animation: glow-pulse 4s ease-in-out infinite; }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        .reveal-delay-1 { transition-delay: 0.15s; }
+        .reveal-delay-2 { transition-delay: 0.3s; }
+        .reveal-delay-3 { transition-delay: 0.45s; }
+
+        .gradient-text {
+            background: linear-gradient(135deg, #3b82f6, #60a5fa, #93c5fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .grid-pattern {
+            background-image:
+                linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+        }
+        .card-shine { position: relative; overflow: hidden; }
+        .card-shine::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%;
+            width: 200%; height: 200%;
+            background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.03) 50%, transparent 60%);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        .card-shine:hover::before { transform: translateX(100%); }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #09090b; }
+        ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+    </style>
+</head>
+<body class="bg-[#09090b] text-white antialiased overflow-x-hidden">
+
+    <!-- NAVBAR -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center group-hover:bg-blue-500 transition-colors duration-300">
+                    <i data-lucide="pen-tool" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="text-lg font-bold tracking-tight">طرح‌نگار</span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#services" class="text-sm text-zinc-400 hover:text-white transition-colors duration-150">خدمات</a>
+                <a href="#approach" class="text-sm text-zinc-400 hover:text-white transition-colors duration-150">رویکرد</a>
+                <a href="#about" class="text-sm text-zinc-400 hover:text-white transition-colors duration-150">درباره ما</a>
+                <a href="#contact" class="text-sm text-zinc-400 hover:text-white transition-colors duration-150">تماس</a>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="tel:09351417807" class="hidden sm:flex items-center gap-2 text-sm text-zinc-400 hover:text-white transition-colors duration-150">
+                    <i data-lucide="phone" class="w-4 h-4"></i>
+                    <span>۰۹۳۵۱۴۱۷۸۰۷</span>
+                </a>
+                <a href="#contact" class="h-10 px-6 bg-white text-[#09090b] rounded-lg text-sm font-medium flex items-center hover:bg-zinc-200 transition-all duration-150">مشاوره رایگان</a>
+                <button id="mobile-menu-btn" class="md:hidden w-10 h-10 rounded-lg border border-white/10 flex items-center justify-center hover:border-white/20 transition-all">
+                    <i data-lucide="menu" class="w-5 h-5"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-[#09090b]/95 backdrop-blur-xl border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6 py-6 flex flex-col gap-4">
+                <a href="#services" class="text-zinc-400 hover:text-white transition-colors py-2">خدمات</a>
+                <a href="#approach" class="text-zinc-400 hover:text-white transition-colors py-2">رویکرد</a>
+                <a href="#about" class="text-zinc-400 hover:text-white transition-colors py-2">درباره ما</a>
+                <a href="#contact" class="text-zinc-400 hover:text-white transition-colors py-2">تماس</a>
+                <a href="tel:09351417807" class="flex items-center gap-2 text-blue-400 py-2">
+                    <i data-lucide="phone" class="w-4 h-4"></i> ۰۹۳۵۱۴۱۷۸۰۷
+                </a>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- HERO -->
+    <section class="relative min-h-screen flex items-center pt-20 grid-pattern overflow-hidden">
+        <div class="absolute top-32 left-[10%] w-64 h-64 bg-blue-600/10 rounded-full blur-[80px] float-1 glow-pulse"></div>
+        <div class="absolute bottom-32 right-[15%] w-48 h-48 bg-blue-400/8 rounded-full blur-[60px] float-2 glow-pulse"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-500/5 rounded-full blur-[120px]"></div>
+        <div class="absolute top-[20%] right-[8%] float-1 hidden lg:block"><div class="w-16 h-16 border border-white/10 rounded-2xl rotate-12"></div></div>
+        <div class="absolute top-[35%] left-[5%] float-2 hidden lg:block"><div class="w-10 h-10 border border-blue-500/20 rounded-lg -rotate-12"></div></div>
+        <div class="absolute bottom-[25%] right-[12%] float-3 hidden lg:block"><div class="w-8 h-8 bg-white/5 rounded-md rotate-45"></div></div>
+        <div class="absolute top-[15%] left-[20%] float-slow hidden lg:block"><div class="w-6 h-6 border border-white/5 rounded-full"></div></div>
+
+        <div class="relative max-w-7xl mx-auto px-6 py-24 md:py-32">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="reveal inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 mb-8">
+                    <span class="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
+                    <span class="text-xs font-medium text-zinc-400">آژانس دیجیتال طرح‌نگار</span>
+                </div>
+                <h1 class="reveal reveal-delay-1 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight tracking-tight mb-6">
+                    کسب‌وکار شما<br><span class="gradient-text">فراتر از یک وب‌سایت</span>
+                </h1>
+                <p class="reveal reveal-delay-2 text-lg md:text-xl text-zinc-400 leading-relaxed max-w-2xl mx-auto mb-10">
+                    طراحی سایت‌هایی برای معرفی حرفه‌ای خدمات، جلب اعتماد مشتری و ایجاد فرصت‌های جدید فروش
+                </p>
+                <div class="reveal reveal-delay-3 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <a href="#contact" class="w-full sm:w-auto h-14 px-8 bg-white text-[#09090b] rounded-xl text-base font-semibold flex items-center justify-center gap-2 hover:bg-zinc-200 transition-all duration-150 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                        شروع پروژه <i data-lucide="arrow-left" class="w-5 h-5"></i>
+                    </a>
+                    <a href="#services" class="w-full sm:w-auto h-14 px-8 border border-white/10 rounded-xl text-base font-medium flex items-center justify-center gap-2 hover:border-white/20 hover:bg-white/5 transition-all duration-150">
+                        مشاهده خدمات
+                    </a>
+                </div>
+                <div class="reveal mt-16 flex flex-wrap items-center justify-center gap-8 text-zinc-500 text-sm">
+                    <div class="flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4 text-blue-500"></i><span>ضمانت کیفیت</span></div>
+                    <div class="flex items-center gap-2"><i data-lucide="headphones" class="w-4 h-4 text-blue-500"></i><span>پشتیبانی مداوم</span></div>
+                    <div class="flex items-center gap-2"><i data-lucide="zap" class="w-4 h-4 text-blue-500"></i><span>سرعت بالا</span></div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-zinc-500">
+            <span class="text-xs">اسکرول کنید</span>
+            <div class="w-5 h-8 rounded-full border border-zinc-600 flex items-start justify-center p-1"><div class="w-1 h-2 bg-zinc-400 rounded-full animate-bounce"></div></div>
+        </div>
+    </section>
+
+
+    <!-- SERVICES -->
+    <section id="services" class="relative py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 mb-4">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">خدمات ما</span>
+                </div>
+                <h2 class="reveal reveal-delay-1 text-3xl md:text-4xl font-bold tracking-tight mb-4">وب‌سایت شما، <span class="gradient-text">ابزار فروش</span> شماست</h2>
+                <p class="reveal reveal-delay-2 text-zinc-400 text-lg max-w-2xl mx-auto leading-relaxed">جذب مشتری، افزایش اعتماد و ساده‌تر کردن فروش با راهکارهای تخصصی</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="reveal reveal-delay-1 card-shine group p-8 rounded-2xl border border-white/5 bg-[rgba(24,24,27,0.4)] hover:border-white/10 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-600/10 flex items-center justify-center mb-6 group-hover:bg-blue-600/20 transition-colors duration-300">
+                        <i data-lucide="layout" class="w-7 h-7 text-blue-500"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">طراحی و توسعه وب‌سایت</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">سایت شرکتی، فروشگاهی، شخصی و خدماتی — طراحی اختصاصی متناسب با هویت برند شما</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>سایت شرکتی و سازمانی</li>
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>فروشگاه آنلاین</li>
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>سایت شخصی و رزومه</li>
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>سایت خدماتی</li>
+                    </ul>
+                </div>
+                <div class="reveal reveal-delay-2 card-shine group p-8 rounded-2xl border border-blue-500/20 bg-[rgba(24,24,27,0.4)] hover:border-blue-500/30 transition-all duration-300 relative">
+                    <div class="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-blue-600 rounded-full text-xs font-semibold">پرمخاطب‌ترین</div>
+                    <div class="w-14 h-14 rounded-2xl bg-blue-600/10 flex items-center justify-center mb-6 group-hover:bg-blue-600/20 transition-colors duration-300">
+                        <i data-lucide="rocket" class="w-7 h-7 text-blue-500"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">توسعه کسب‌وکار آنلاین</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">معرفی حرفه‌ای خدمات، دریافت سفارش و ایجاد مسیر ارتباط مستمر با مشتری</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>معرفی حرفه‌ای خدمات</li>
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>سیستم دریافت سفارش</li>
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>ارتباط با مشتری</li>
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>درگاه پرداخت</li>
+                    </ul>
+                </div>
+                <div class="reveal reveal-delay-3 card-shine group p-8 rounded-2xl border border-white/5 bg-[rgba(24,24,27,0.4)] hover:border-white/10 transition-all duration-300">
+                    <div class="w-14 h-14 rounded-2xl bg-blue-600/10 flex items-center justify-center mb-6 group-hover:bg-blue-600/20 transition-colors duration-300">
+                        <i data-lucide="settings" class="w-7 h-7 text-blue-500"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">بهینه‌سازی و پشتیبانی</h3>
+                    <p class="text-zinc-400 leading-relaxed mb-6">بهبود سرعت، تجربه کاربری، سئو و توسعه امکانات سایت برای رشد مستمر</p>
+                    <ul class="space-y-3">
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>بهینه‌سازی سرعت</li>
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>سئو و کسب رتبه</li>
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>تجربه کاربری</li>
+                        <li class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="check" class="w-4 h-4 text-blue-500"></i>پشتیبانی و توسعه</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- APPROACH -->
+    <section id="approach" class="relative py-24 md:py-32">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-600/5 rounded-full blur-[100px]"></div>
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 mb-4">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">رویکرد ما</span>
+                </div>
+                <h2 class="reveal reveal-delay-1 text-3xl md:text-4xl font-bold tracking-tight mb-4">مسیر مناسب <span class="gradient-text">شما</span> کجاست؟</h2>
+                <p class="reveal reveal-delay-2 text-zinc-400 text-lg max-w-2xl mx-auto leading-relaxed">هر کسب‌وکاری رویکرد متفاوتی برای رشد دارد. ما همراه مسیر شما هستیم.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="reveal reveal-delay-1 group p-8 rounded-2xl border border-white/5 bg-[rgba(24,24,27,0.4)] hover:border-white/10 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/5 rounded-full blur-[40px] group-hover:bg-emerald-500/10 transition-all duration-500"></div>
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-6 group-hover:bg-emerald-500/20 transition-colors">
+                            <i data-lucide="trending-up" class="w-6 h-6 text-emerald-500"></i>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-medium text-emerald-400 mb-4">تجاری و مستقیم</div>
+                        <h3 class="text-xl font-semibold mb-3">حضور آنلاین حرفه‌ای</h3>
+                        <p class="text-zinc-400 leading-relaxed mb-5">شروع رشد کسب‌وکار شما با یک وب‌سایت حرفه‌ای و هدفمند</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-zinc-400">شرکت‌ها</span>
+                            <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-zinc-400">فروشگاه‌ها</span>
+                            <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-zinc-400">ارائه‌دهندگان خدمات</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal reveal-delay-2 group p-8 rounded-2xl border border-blue-500/20 bg-[rgba(24,24,27,0.4)] hover:border-blue-500/30 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full blur-[40px] group-hover:bg-blue-500/10 transition-all duration-500"></div>
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center mb-6 group-hover:bg-blue-500/20 transition-colors">
+                            <i data-lucide="sparkles" class="w-6 h-6 text-blue-500"></i>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-medium text-blue-400 mb-4">مدرن و مینیمال</div>
+                        <h3 class="text-xl font-semibold mb-3">از ایده تا تجربه دیجیتال</h3>
+                        <p class="text-zinc-400 leading-relaxed mb-5">مناسب برای برندهای تکنولوژی‌محور با طراحی مدرن و مینیمال</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-zinc-400">استارتاپ</span>
+                            <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-zinc-400">برند تکنولوژی</span>
+                            <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-zinc-400">SaaS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal reveal-delay-3 group p-8 rounded-2xl border border-white/5 bg-[rgba(24,24,27,0.4)] hover:border-white/10 transition-all duration-300 relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/5 rounded-full blur-[40px] group-hover:bg-amber-500/10 transition-all duration-500"></div>
+                    <div class="relative">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center mb-6 group-hover:bg-amber-500/20 transition-colors">
+                            <i data-lucide="shield" class="w-6 h-6 text-amber-500"></i>
+                        </div>
+                        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/20 text-xs font-medium text-amber-400 mb-4">اعتمادسازی</div>
+                        <h3 class="text-xl font-semibold mb-3">حرفه‌ای دیده شوید</h3>
+                        <p class="text-zinc-400 leading-relaxed mb-5">هوشمندانه رشد کنید و تصویر برندتان را ارتقا دهید</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-zinc-400">مشاوره‌ای</span>
+                            <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-zinc-400">حرفه‌ای</span>
+                            <span class="px-3 py-1 rounded-lg bg-white/5 text-xs text-zinc-400">B2B</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ABOUT / STATS -->
+    <section id="about" class="relative py-24 md:py-32">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="reveal rounded-2xl border border-white/5 bg-[rgba(24,24,27,0.3)] p-8 md:p-12">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 mb-6">
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">چرا طرح‌نگار</span>
+                        </div>
+                        <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-6">ما فقط سایت <span class="gradient-text">نمی‌سازیم</span><br>مسیر رشد می‌سازیم</h2>
+                        <p class="text-zinc-400 leading-relaxed mb-8">هر پروژه برای ما فراتر از کدنویسی است. ما کسب‌وکار شما را درک می‌کنیم، مخاطب هدف را تحلیل می‌کنیم و سپس راهکار دیجیتالی را طراحی می‌کنیم که واقعاً نتیجه‌بخش باشد.</p>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-blue-600/20 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="target" class="w-3.5 h-3.5 text-blue-500"></i></div>
+                                <div><span class="text-sm font-medium">رویکرد نتایج‌محور</span><p class="text-xs text-zinc-500 mt-1">هر تصمیم طراحی بر اساس تأثیر بر فروش و تبدیل کاربر</p></div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-blue-600/20 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="users" class="w-3.5 h-3.5 text-blue-500"></i></div>
+                                <div><span class="text-sm font-medium">همراه طولانی‌مدت</span><p class="text-xs text-zinc-500 mt-1">پشتیبانی، بهینه‌سازی و توسعه مستمر بعد از تحویل</p></div>
+                            </div>
+                            <div class="flex items-start gap-3">
+                                <div class="w-6 h-6 rounded-full bg-blue-600/20 flex items-center justify-center flex-shrink-0 mt-0.5"><i data-lucide="lightbulb" class="w-3.5 h-3.5 text-blue-500"></i></div>
+                                <div><span class="text-sm font-medium">مشاوره پیش از پروژه</span><p class="text-xs text-zinc-500 mt-1">بدون هزینه، مسیر درست را برای شروع پیدا می‌کنیم</p></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-6 rounded-xl border border-white/5 bg-white/[0.02] text-center hover:border-white/10 transition-all duration-300">
+                            <div class="text-3xl md:text-4xl font-bold gradient-text mb-2">+۵۰</div>
+                            <div class="text-sm text-zinc-500">پروژه موفق</div>
+                        </div>
+                        <div class="p-6 rounded-xl border border-white/5 bg-white/[0.02] text-center hover:border-white/10 transition-all duration-300">
+                            <div class="text-3xl md:text-4xl font-bold gradient-text mb-2">٪۹۸</div>
+                            <div class="text-sm text-zinc-500">رضایت مشتری</div>
+                        </div>
+                        <div class="p-6 rounded-xl border border-white/5 bg-white/[0.02] text-center hover:border-white/10 transition-all duration-300">
+                            <div class="text-3xl md:text-4xl font-bold gradient-text mb-2">۲۴/۷</div>
+                            <div class="text-sm text-zinc-500">پشتیبانی</div>
+                        </div>
+                        <div class="p-6 rounded-xl border border-white/5 bg-white/[0.02] text-center hover:border-white/10 transition-all duration-300">
+                            <div class="text-3xl md:text-4xl font-bold gradient-text mb-2">+۳</div>
+                            <div class="text-sm text-zinc-500">سال تجربه</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- PROCESS -->
+    <section class="relative py-24 md:py-32 overflow-hidden">
+        <div class="absolute top-0 right-0 w-72 h-72 bg-blue-600/5 rounded-full blur-[80px] float-2"></div>
+        <div class="relative max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <div class="reveal inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/10 bg-white/5 mb-4">
+                    <span class="text-[10px] font-bold uppercase tracking-widest text-zinc-400">فرایند کار</span>
+                </div>
+                <h2 class="reveal reveal-delay-1 text-3xl md:text-4xl font-bold tracking-tight">از <span class="gradient-text">مکالمه</span> تا <span class="gradient-text">نتیجه</span></h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div class="reveal reveal-delay-1 relative p-6 rounded-xl border border-white/5 bg-[rgba(24,24,27,0.3)] hover:border-white/10 transition-all duration-300 group">
+                    <div class="text-5xl font-bold text-white/[0.03] absolute top-2 left-4">۰۱</div>
+                    <div class="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center mb-4 group-hover:bg-blue-600/20 transition-colors"><i data-lucide="message-circle" class="w-5 h-5 text-blue-500"></i></div>
+                    <h4 class="font-semibold mb-2">مشاوره</h4>
+                    <p class="text-sm text-zinc-500 leading-relaxed">شناخت نیازها، اهداف و مخاطب هدف کسب‌وکار شما</p>
+                </div>
+                <div class="reveal reveal-delay-2 relative p-6 rounded-xl border border-white/5 bg-[rgba(24,24,27,0.3)] hover:border-white/10 transition-all duration-300 group">
+                    <div class="text-5xl font-bold text-white/[0.03] absolute top-2 left-4">۰۲</div>
+                    <div class="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center mb-4 group-hover:bg-blue-600/20 transition-colors"><i data-lucide="pencil-ruler" class="w-5 h-5 text-blue-500"></i></div>
+                    <h4 class="font-semibold mb-2">طراحی</h4>
+                    <p class="text-sm text-zinc-500 leading-relaxed">طراحی رابط کاربری متناسب با هویت و رویکرد برند</p>
+                </div>
+                <div class="reveal reveal-delay-3 relative p-6 rounded-xl border border-white/5 bg-[rgba(24,24,27,0.3)] hover:border-white/10 transition-all duration-300 group">
+                    <div class="text-5xl font-bold text-white/[0.03] absolute top-2 left-4">۰۳</div>
+                    <div class="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center mb-4 group-hover:bg-blue-600/20 transition-colors"><i data-lucide="code" class="w-5 h-5 text-blue-500"></i></div>
+                    <h4 class="font-semibold mb-2">توسعه</h4>
+                    <p class="text-sm text-zinc-500 leading-relaxed">پیاده‌سازی تمیز، سریع و بهینه با تکنولوژی مدرن</p>
+                </div>
+                <div class="reveal relative p-6 rounded-xl border border-white/5 bg-[rgba(24,24,27,0.3)] hover:border-white/10 transition-all duration-300 group">
+                    <div class="text-5xl font-bold text-white/[0.03] absolute top-2 left-4">۰۴</div>
+                    <div class="w-10 h-10 rounded-xl bg-blue-600/10 flex items-center justify-center mb-4 group-hover:bg-blue-600/20 transition-colors"><i data-lucide="rocket" class="w-5 h-5 text-blue-500"></i></div>
+                    <h4 class="font-semibold mb-2">راه‌اندازی و رشد</h4>
+                    <p class="text-sm text-zinc-500 leading-relaxed">تحویل، آموزش و شروع مسیر رشد آنلاین شما</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- CONTACT -->
+    <section id="contact" class="relative py-24 md:py-32 overflow-hidden">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-[100px]"></div>
+        <div class="relative max-w-4xl mx-auto px-6">
+            <div class="reveal rounded-2xl border border-white/10 bg-[rgba(24,24,27,0.6)] backdrop-blur-sm p-8 md:p-12 text-center">
+                <div class="w-16 h-16 rounded-2xl bg-blue-600/10 flex items-center justify-center mx-auto mb-6 float-slow">
+                    <i data-lucide="sparkles" class="w-8 h-8 text-blue-500"></i>
+                </div>
+                <h2 class="text-3xl md:text-4xl font-bold tracking-tight mb-4">آماده <span class="gradient-text">رشد</span> هستید؟</h2>
+                <p class="text-zinc-400 text-lg leading-relaxed max-w-xl mx-auto mb-10">همین الان تماس بگیرید تا درباره پروژه‌تان مشاوره رایگان دریافت کنید</p>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+                    <a href="tel:09351417807" class="group flex flex-col items-center gap-3 p-6 rounded-xl border border-white/5 hover:border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/20 transition-colors"><i data-lucide="phone" class="w-6 h-6 text-emerald-500"></i></div>
+                        <span class="text-sm font-medium">تماس تلفنی</span>
+                        <span class="text-xs text-zinc-500" dir="ltr">09351417807</span>
+                    </a>
+                    <a href="sms:09351417807" class="group flex flex-col items-center gap-3 p-6 rounded-xl border border-white/5 hover:border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/10 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors"><i data-lucide="message-square" class="w-6 h-6 text-blue-500"></i></div>
+                        <span class="text-sm font-medium">پیامک</span>
+                        <span class="text-xs text-zinc-500" dir="ltr">09351417807</span>
+                    </a>
+                    <a href="https://bale.ir" target="_blank" class="group flex flex-col items-center gap-3 p-6 rounded-xl border border-white/5 hover:border-white/10 bg-white/[0.02] hover:bg-white/[0.04] transition-all duration-300">
+                        <div class="w-12 h-12 rounded-xl bg-amber-500/10 flex items-center justify-center group-hover:bg-amber-500/20 transition-colors">
+                            <svg class="w-6 h-6 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                        </div>
+                        <span class="text-sm font-medium">بله</span>
+                        <span class="text-xs text-zinc-500" dir="ltr">09351417807</span>
+                    </a>
+                </div>
+                <a href="tel:09351417807" class="inline-flex items-center gap-2 h-14 px-8 bg-white text-[#09090b] rounded-xl text-base font-semibold hover:bg-zinc-200 transition-all duration-150 hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]">
+                    <i data-lucide="phone-call" class="w-5 h-5"></i> تماس برای مشاوره رایگان
+                </a>
+                <p class="text-xs text-zinc-600 mt-6">پاسخگویی روزهای کاری از ۹ صبح تا ۶ عصر</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer class="relative border-t border-white/5 pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+                <div class="md:col-span-2">
+                    <div class="flex items-center gap-3 mb-4">
+                        <div class="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center"><i data-lucide="pen-tool" class="w-5 h-5 text-white"></i></div>
+                        <span class="text-lg font-bold">طرح‌نگار</span>
+                    </div>
+                    <p class="text-sm text-zinc-500 leading-relaxed max-w-sm mb-4">آژانس دیجیتال طرح‌نگار — طراحی و توسعه وب‌سایت‌های حرفه‌ای برای رشد کسب‌وکار آنلاین شما</p>
+                    <div class="flex items-center gap-2 text-sm text-zinc-500"><i data-lucide="globe" class="w-4 h-4"></i><span>tarhnegaar.ir</span></div>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">دسترسی سریع</h4>
+                    <ul class="space-y-3">
+                        <li><a href="#services" class="text-sm text-zinc-500 hover:text-white transition-colors">خدمات</a></li>
+                        <li><a href="#approach" class="text-sm text-zinc-500 hover:text-white transition-colors">رویکرد</a></li>
+                        <li><a href="#about" class="text-sm text-zinc-500 hover:text-white transition-colors">درباره ما</a></li>
+                        <li><a href="#contact" class="text-sm text-zinc-500 hover:text-white transition-colors">تماس</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-sm font-semibold mb-4">ارتباط با ما</h4>
+                    <ul class="space-y-3">
+                        <li><a href="tel:09351417807" class="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors"><i data-lucide="phone" class="w-4 h-4"></i><span dir="ltr">09351417807</span></a></li>
+                        <li><a href="sms:09351417807" class="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors"><i data-lucide="message-square" class="w-4 h-4"></i>پیامک</a></li>
+                        <li><a href="https://bale.ir" class="flex items-center gap-2 text-sm text-zinc-500 hover:text-white transition-colors"><svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>بله</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/5 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p class="text-xs text-zinc-600">© ۱۴۰۳ طرح‌نگار. تمامی حقوق محفوظ است.</p>
+                <p class="text-xs text-zinc-700">طراحی شده با ❤️ توسط طرح‌نگار</p>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- SCRIPTS -->
+    <script>
+        lucide.createIcons();
+
+        // Navbar scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 50) {
+                navbar.classList.add('bg-[#09090b]/80', 'backdrop-blur-xl', 'border-b', 'border-white/5');
+            } else {
+                navbar.classList.remove('bg-[#09090b]/80', 'backdrop-blur-xl', 'border-b', 'border-white/5');
+            }
+        });
+
+        // Mobile menu
+        document.getElementById('mobile-menu-btn').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => document.getElementById('mobile-menu').classList.add('hidden'));
+        });
+
+        // Scroll Reveal
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+    </script>
+</body>
+</html>
